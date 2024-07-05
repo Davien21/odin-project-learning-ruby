@@ -1,22 +1,18 @@
 def stock_picker(prices) # in 0(n)
-  if (prices.empty? || prices.length < 2)
-    return [] 
-  end
+  return [] if (prices.empty? || prices.length < 2)
   
   min_price_index = 0
   max_profit = 0
   best_days = [0, 1]
 
-  prices.each_with_index do |price, i|
-    if (price < prices[min_price_index])
-      min_price_index = i
-    end
+  prices.each_with_index do |price, index|
+    min_price_index = index if (price < prices[min_price_index])
 
-    if (i > min_price_index) # you must buy before you sell
+    if (index > min_price_index) # you must buy before you sell
       profit = price - prices[min_price_index]
       if (profit > max_profit)
         max_profit = profit
-        best_days = [min_price_index, i]
+        best_days = [min_price_index, index]
       end
     end
   end
